@@ -1,0 +1,853 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{ex2}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \#
+
+Programming Exercise 2: Logistic Regression
+
+\#\#
+
+Machine Learning
+
+\subsection{Introduction}\label{introduction}
+
+In this exercise, you will implement logistic regression and apply it to
+two different datasets. Before starting on the programming exercise, we
+strongly recommend watching the video lectures and completing the review
+questions for the associated topics.
+
+Files included in this exercise:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{ex2.ipynb} - Python script that steps you through the
+  exercise\\
+\item
+  \texttt{ex2\_utils.py} - Exercise 2's utilities functions
+\item
+  \texttt{ex2data1.txt} - Training set for the first half of the
+  exercise
+\item
+  \texttt{ex2data2.txt} - Training set for the second half of the
+  exercise
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{o}{\PYZpc{}}\PY{k}{load\PYZus{}ext} autoreload
+        \PY{o}{\PYZpc{}}\PY{k}{autoreload} 2
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{ex2\PYZus{}utils} \PY{k}{import} \PY{o}{*}
+        \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{optimize} \PY{k}{as} \PY{n+nn}{opt}
+\end{Verbatim}
+
+
+    \subsection{1. Logistic Regression}\label{logistic-regression}
+
+In this part of the exercise, you will build a logistic regression model
+to predict whether a student gets admitted into a university.
+
+Suppose that you are the administrator of a university department and
+you want to determine each applicant's chance of admission based on
+their results on two exams. You have historical data from previous
+applicants that you can use as a training set for logistic regression.
+For each training example, you have the applicant's scores on two exams
+and the admissions decision. Your task is to build a classification
+model that estimates an applicant's probability of admission based the
+scores from those two exams.
+
+\subsubsection{1.1 Visualizing the data}\label{visualizing-the-data}
+
+Before starting to implement any learning algorithm, it is always good
+to visualize the data if possible. In the first part of
+\texttt{ex2.ipynb}, the code will load the data and display it on a
+2-dimensional plot by calling the function \texttt{load@ex2\_utils.py},
+where the axes are the two exam scores, and the positive and negative
+examples are shown with different markers.
+
+You will now complete the code in plot\_data so that it displays a
+figure like \texttt{Figure\ 1}, where the axes are the two exam scores,
+and the positive and negative examples are shown with different markers.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} Load Data}
+        \PY{c+c1}{\PYZsh{} The first two columns contains the exam scores and the third column contains the label.}
+        \PY{n}{data} \PY{o}{=} \PY{n}{load}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ex2data1.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{X} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}
+        \PY{n}{y} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} ==================== Part 1: Plotting ====================}
+        \PY{c+c1}{\PYZsh{} We start the exercise by first plotting the data to understand the problem we are working with.\PYZpc{}\PYZpc{} Load Data}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Plotting data with + indicating (y = 1) examples and o indicating (y = 0) examples...}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{plot\PYZus{}data}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Exam 1 score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Exam 2 score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Admitted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Not admitted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{Figure 1: Scatter plot of training data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Plotting data with + indicating (y = 1) examples and o indicating (y = 0) examples{\ldots}
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+	Figure 1: Scatter plot of training data
+
+    \end{Verbatim}
+
+    \subsection{1.2 Implementation}\label{implementation}
+
+\subsubsection{1.2.1 Sigmoid function}\label{sigmoid-function}
+
+Before you start with the actual cost function, recall that the logistic
+regression hypothesis is defined as:
+
+\(h_\theta(x)=g(\theta^Tx)\)
+
+where function g is the sigmoid function. The sigmoid function is
+defined as:
+
+\[g(z)={1\over 1+e^{-z}}\]
+
+Your first step is to implement this function
+\texttt{sigmoid@ex2\_utils.py} so it can be called by the rest of your
+program. When you are finished, try testing a few values by calling
+\texttt{sigmoid(x)} . For large positive values of x, the sigmoid should
+be close to 1, while for large negative values, the sigmoid should be
+close to 0. Evaluating \texttt{sigmoid(0)} should give you exactly 0.5.
+Your code should also work with vectors and matrices. For a matrix, your
+function should perform the sigmoid function on every element.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{sigmoid}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} 0.5
+\end{Verbatim}
+            
+    \subsubsection{1.2.2 Cost function and
+gradient}\label{cost-function-and-gradient}
+
+Now you will implement the cost function and gradient for logistic
+regression. Recall that the cost function in logistic regression is
+
+\[J(\theta) =  \frac{1}{m}\sum_{i=1}^{m}[-y^{(i)}\log(h_\theta(x^{(i)}) - (1-y^{(i)})\log(1 - h_\theta(x^{(i)}))]\]
+
+and the gradient of the cost is a vector of the same length as
+\(\theta\) where the \(j^th\) element (for \(j = 0, 1, . . . , n\)) is
+defined as follows:
+
+\[\frac{\partial J(\theta)}{\partial\theta_j} = \frac{1}{m}\sum_{i=1}^{m}(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)}\]
+
+Note that while this gradient looks identical to the linear regression
+gradient, the formula is actually different because linear and logistic
+regression have different definitions of \(h_\theta{(x)}\). Once you are
+done, call your \texttt{costFunc} using the initial parameters of
+\(\theta\). You should see that the cost is about \(0.693\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}  ============ Part 2: Compute Cost and Gradient ============}
+        
+        \PY{c+c1}{\PYZsh{} Setup the data matrix appropriately, and add ones for the intercept term}
+        \PY{p}{[}\PY{n}{m}\PY{p}{,} \PY{n}{n}\PY{p}{]} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{shape}
+        
+        \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{m}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Initialize fitting parameters}
+        \PY{n}{initial\PYZus{}theta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{n}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Compute and display initial cost and gradient}
+        
+        \PY{n}{cost}\PY{p}{,} \PY{n}{grad} \PY{o}{=} \PY{n}{costFunc}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{o}{.}\PY{n}{cost}\PY{p}{(}\PY{n}{initial\PYZus{}theta}\PY{p}{)}\PY{p}{,} \PY{n}{costFunc}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{o}{.}\PY{n}{gradient}\PY{p}{(}\PY{n}{initial\PYZus{}theta}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cost at initial theta (zeros): }\PY{l+s+si}{\PYZpc{}0.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{cost})
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Expected cost (approx): 0.693}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gradient at initial theta (zeros):}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+si}{\PYZpc{}0.4f}\PY{l+s+s1}{ }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+si}{\PYZpc{}0.4f}\PY{l+s+s1}{ }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+si}{\PYZpc{}0.4f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{tuple}(grad[:]))
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Expected gradients (approx):}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{ \PYZhy{}0.1000}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{ \PYZhy{}12.0092}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{ \PYZhy{}11.2628}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Cost at initial theta (zeros): 0.693
+Expected cost (approx): 0.693
+Gradient at initial theta (zeros):
+-0.1000 
+-12.0092 
+-11.2628
+Expected gradients (approx):
+ -0.1000
+ -12.0092
+ -11.2628
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} Compute and display cost and gradient with non\PYZhy{}zero theta}
+        \PY{n}{test\PYZus{}theta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{24}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.2}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.2}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}cost, grad = costFunction(test\PYZus{}theta, X, y)}
+        \PY{n}{cost}\PY{p}{,} \PY{n}{grad} \PY{o}{=} \PY{n}{costFunc}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{o}{.}\PY{n}{cost}\PY{p}{(}\PY{n}{test\PYZus{}theta}\PY{p}{)}\PY{p}{,} \PY{n}{costFunc}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{o}{.}\PY{n}{gradient}\PY{p}{(}\PY{n}{test\PYZus{}theta}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cost at test theta : }\PY{l+s+si}{\PYZpc{}0.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{cost})
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Expected cost (approx): 0.218}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gradient at test theta (zeros):}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+si}{\PYZpc{}0.3f}\PY{l+s+s1}{ }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+si}{\PYZpc{}0.3f}\PY{l+s+s1}{ }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+si}{\PYZpc{}0.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{tuple}(grad[:]))
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Expected gradients (approx):}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{ 0.043}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{ 2.566}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{ 2.647}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Cost at test theta : 0.218
+Expected cost (approx): 0.218
+Gradient at test theta (zeros):
+0.043 
+2.566 
+2.647
+Expected gradients (approx):
+ 0.043
+ 2.566
+ 2.647
+
+
+    \end{Verbatim}
+
+    \subsubsection{\texorpdfstring{1.2.3 Learning parameters using
+\texttt{scipy.optimize.fmin\_tnc}}{1.2.3 Learning parameters using scipy.optimize.fmin\_tnc}}\label{learning-parameters-using-scipy.optimize.fminux5ftnc}
+
+In the previous assignment, you found the optimal parameters of a linear
+regression model by implementing gradent descent. You wrote a cost
+function and calculated its gradient, then took a gradient descent step
+accordingly. This time, instead of taking gradient descent steps, you
+will use an \texttt{scipy.optimize}'s built-in function called
+\texttt{fmin\_tnc}. \texttt{fimin\_tnc} is an optimization solver that
+finds the minimum of an unconstrained 2 function. For logistic
+regression, you want to optimize the cost function \(J(\theta)\) with
+parameters \(\theta\). Concretely, you are going to use
+\texttt{fmin\_tnc} to find the best parameters \(\theta\) for the
+logistic regression cost function, given a fixed dataset (of \(X\) and
+\(y\) values). You will pass to \texttt{fmin\_tnc} the following inputs:
+
+\begin{itemize}
+\tightlist
+\item
+  The initial values of the parameters we are trying to optimize.
+\item
+  A function that, when given the training set and a particular
+  \(\theta\), computes the logistic regression cost and gradient with
+  respect to θ for the dataset \((X, y)\).
+\end{itemize}
+
+    If you have completed the \texttt{costFunc} correctly, fminunc will
+converge on the right optimization parameters and return the final
+values of the cost and \(\theta\). Once \texttt{fmin\_tnc} completes,
+call your \texttt{costFunc} function using the optimal parameters of
+\(\theta\).You should see that the cost is about 0.203. This final
+\(\theta\) value will then be used to plot the decision boundary on the
+training data, resulting in a figure similar to \texttt{Figure\ 2}. We
+also encourage you to look at the code in
+\texttt{plotDecisionBoundary@ex2\_utils.py} to see how to plot such a
+boundary using the \(\theta\) values.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{f} \PY{o}{=} \PY{n}{costFunc}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+        \PY{n}{result} \PY{o}{=} \PY{n}{opt}\PY{o}{.}\PY{n}{fmin\PYZus{}tnc}\PY{p}{(}\PY{n}{func}\PY{o}{=}\PY{n}{f}\PY{o}{.}\PY{n}{cost}\PY{p}{,} \PY{n}{x0}\PY{o}{=}\PY{n}{initial\PYZus{}theta}\PY{p}{,} \PY{n}{fprime}\PY{o}{=}\PY{n}{f}\PY{o}{.}\PY{n}{gradient}\PY{p}{)} 
+        \PY{n}{theta\PYZus{}opt} \PY{o}{=} \PY{n}{result}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{cost\PYZus{}opt} \PY{o}{=} \PY{n}{f}\PY{o}{.}\PY{n}{cost}\PY{p}{(}\PY{n}{theta\PYZus{}opt}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cost at theta found by fminunc: }\PY{l+s+si}{\PYZpc{}0.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{cost\PYZus{}opt})
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Expected cost (approx): 0.203}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{theta: }\PY{l+s+si}{\PYZpc{}0.3f}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZpc{}0.3f}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZpc{}0.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{tuple}(theta\PYZus{}opt[:]))
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Expected theta (approx): \PYZhy{}25.161  0.206  0.201}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Cost at theta found by fminunc: 0.203
+Expected cost (approx): 0.203
+
+theta: -25.161  0.206  0.201
+Expected theta (approx): -25.161  0.206  0.201
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} Plot Boundary}
+        \PY{n}{fig} \PY{o}{=} \PY{n}{plot\PYZus{}data}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Exam 1 score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Exam 2 score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Admitted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Not admitted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plotDecisionBoundary}\PY{p}{(}\PY{n}{theta\PYZus{}opt}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{Figure 2: Training data with Decision boundary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+	Figure 2: Training data with Decision boundary
+
+    \end{Verbatim}
+
+    \subsubsection{1.2.4 Evaluating logistic
+regression}\label{evaluating-logistic-regression}
+
+After learning the parameters, you can use the model to predict whether
+a particular student will be admitted. For a student with an Exam 1
+score of 45 and an Exam 2 score of 85, you should expect to see an
+admission probability of 0.776. Another way to evaluate the quality of
+the parameters we have found is to see how well the learned model
+predicts on our training set. In this part, your task is to complete the
+code in \texttt{predict@ex2\_utils.py}. The predict function will
+produce ``1'' or ``0'' predictions given a dataset and a learned
+parameter vector \(\theta\). After you have completed the code, the
+script will proceed to report the training accuracy of your classifier
+by computing the percentage of examples it got correct.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{prob} \PY{o}{=} \PY{n}{sigmoid}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{45}\PY{p}{,} \PY{l+m+mi}{85}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{theta\PYZus{}opt}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{For a student with scores 45 and 85, we predict an admission probability of }\PY{l+s+si}{\PYZpc{}0.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{prob})
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Expected value: 0.775 +/\PYZhy{} 0.002}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+        
+        \PY{c+c1}{\PYZsh{} Compute accuracy on our training set}
+        \PY{n}{p}\PY{p}{,}\PY{n}{acc} \PY{o}{=} \PY{n}{predict}\PY{p}{(}\PY{n}{theta\PYZus{}opt}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Train Accuracy: }\PY{l+s+si}{\PYZpc{}0.1f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{acc})
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Expected accuracy (approx): 89.0}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+For a student with scores 45 and 85, we predict an admission probability of 0.776
+Expected value: 0.775 +/- 0.002
+
+Train Accuracy: 89.0
+Expected accuracy (approx): 89.0
+
+
+    \end{Verbatim}
+
+    \subsection{2. Regularized logistic
+regression}\label{regularized-logistic-regression}
+
+In this part of the exercise, you will implement regularized logistic
+regression to predict whether microchips from a fabrication plant passes
+quality assurance (QA). During QA, each microchip goes through various
+tests to ensure it is functioning correctly. Suppose you are the product
+manager of the factory and you have the test results for some microchips
+on two different tests. From these two tests, you would like to
+determine whether the microchips should be accepted or rejected. To help
+you make the decision, you have a dataset of test results on past
+microchips, from which you can build a logistic regression model.
+
+\subsubsection{2.1 Visualizing the data}\label{visualizing-the-data}
+
+Similar to the previous parts of this exercise, \texttt{plot\_data} is
+used to generate a figure like \texttt{Figure\ 3}, where the axes are
+the two test scores, and the positive (y = 1, accepted) and negative (y
+= 0, rejected) examples are shown with different markers.
+
+\texttt{Figure\ 3} shows that our dataset cannot be separated into
+positive and negative examples by a straight-line through the plot.
+Therefore, a straight-forward application of logistic regression will
+not perform well on this dataset since logistic regression will only be
+able to find a linear decision boundary.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{data} \PY{o}{=} \PY{n}{load}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ex2data2.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{X} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}
+         \PY{n}{y} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+         
+         \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{plot\PYZus{}data}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Microchip Test 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Microchip Test 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y = 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y = 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{Figure 3: Plot of training data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+	Figure 3: Plot of training data
+
+    \end{Verbatim}
+
+    \subsubsection{2.2 Feature mapping}\label{feature-mapping}
+
+One way to fit the data better is to create more features from each data
+point. The function \texttt{mapFeature} will map the features into all
+polynomial terms of x 1 and x 2 up to the sixth power. As a result of
+this mapping, our vector of two features (the scores on two QA tests)
+has been transformed into a 28-dimensional vector. A logistic regression
+classifier trained on this higher-dimension feature vector will have a
+more complex decision boundary and will appear nonlinear when drawn in
+our 2-dimensional plot. While the feature mapping allows us to build a
+more expressive classifier, it also more susceptible to overfitting. In
+the next parts of the exercise, you will implement regularized logistic
+regression to fit the data and also see for yourself how regularization
+can help combat the overfitting problem.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} Add Polynomial Features}
+         \PY{c+c1}{\PYZsh{} Note that mapFeature also adds a column of ones for us, so the intercept term is handled}
+         \PY{n}{X} \PY{o}{=} \PY{n}{mapFeature}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Initialize fitting parameters}
+         \PY{n}{initial\PYZus{}theta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Set regularization parameter lambda to 1}
+         \PY{n}{lb} \PY{o}{=} \PY{l+m+mi}{1}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} Compute and display initial cost and gradient for regularized logistic regression}
+         \PY{n}{cost}\PY{p}{,} \PY{n}{grad} \PY{o}{=} \PY{n}{costFuncReg}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{lb}\PY{p}{)}\PY{o}{.}\PY{n}{cost}\PY{p}{(}\PY{n}{initial\PYZus{}theta}\PY{p}{)}\PY{p}{,} \PY{n}{costFuncReg}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{lb}\PY{p}{)}\PY{o}{.}\PY{n}{gradient}\PY{p}{(}\PY{n}{initial\PYZus{}theta}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cost at initial theta (zeros): }\PY{l+s+si}{\PYZpc{}0.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{cost})
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Expected cost (approx): 0.693}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gradient at initial theta (zeros) \PYZhy{} first five values only:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}0.4f}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZpc{}0.4f}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZpc{}0.4f}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZpc{}0.4f}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZpc{}0.4f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{tuple}(grad[:5]))
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Expected gradients (approx) \PYZhy{} first five values only}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{0.0085  0.0188  0.0001  0.0503  0.0115}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} fprintf(\PYZsq{}\PYZbs{}nProgram paused. Press enter to continue.\PYZbs{}n\PYZsq{});}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Cost at initial theta (zeros): 0.693
+Expected cost (approx): 0.693
+
+Gradient at initial theta (zeros) - first five values only:
+0.0085  0.0188  0.0001  0.0503  0.0115
+
+Expected gradients (approx) - first five values only
+0.0085  0.0188  0.0001  0.0503  0.0115
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} Compute and display cost and gradient with all\PYZhy{}ones theta and lambda = 10}
+         \PY{n}{test\PYZus{}theta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{t} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{28}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{cost}\PY{p}{,} \PY{n}{grad} \PY{o}{=} \PY{n}{costFuncReg}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{o}{.}\PY{n}{cost}\PY{p}{(}\PY{n}{test\PYZus{}theta}\PY{p}{)}\PY{p}{,} \PY{n}{costFuncReg}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{o}{.}\PY{n}{gradient}\PY{p}{(}\PY{n}{test\PYZus{}theta}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cost at test theta (with lambda = 10): }\PY{l+s+si}{\PYZpc{}0.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{cost})
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Expected cost (approx): 3.16}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gradient at test theta  \PYZhy{} first five values only:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}0.4f}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZpc{}0.4f}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZpc{}0.4f}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZpc{}0.4f}\PY{l+s+s1}{  }\PY{l+s+si}{\PYZpc{}0.4f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{tuple}(grad[:5]))
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Expected gradients (approx) \PYZhy{} first five values only}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{0.3460  0.1614  0.1948  0.2269  0.0922}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Cost at test theta (with lambda = 10): 3.165
+Expected cost (approx): 3.16
+
+Gradient at test theta  - first five values only:
+0.3460  0.1614  0.1948  0.2269  0.0922
+
+Expected gradients (approx) - first five values only
+0.3460  0.1614  0.1948  0.2269  0.0922
+
+    \end{Verbatim}
+
+    \paragraph{\texorpdfstring{2.3.1 Learning parameters using
+\texttt{fmin\_tnc}}{2.3.1 Learning parameters using fmin\_tnc}}\label{learning-parameters-using-fminux5ftnc}
+
+Similar to the previous parts, you will use fminunc to learn the optimal
+parameters \(\theta\). If you have completed the cost and gradient for
+regularized logistic regression \texttt{costFuncReg@ex2\_utils.py}
+correctly, you should be able to step through the next part to learn the
+parameters \(\theta\) using fminunc.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} Initialize fitting parameters}
+         \PY{n}{initial\PYZus{}theta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Set regularization parameter lambda to 1 (you should vary this)}
+         \PY{n}{lb} \PY{o}{=} \PY{l+m+mi}{1}
+         \PY{n}{f} \PY{o}{=} \PY{n}{costFuncReg}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{lb}\PY{p}{)}
+         \PY{n}{result} \PY{o}{=} \PY{n}{opt}\PY{o}{.}\PY{n}{fmin\PYZus{}tnc}\PY{p}{(}\PY{n}{func}\PY{o}{=}\PY{n}{f}\PY{o}{.}\PY{n}{cost}\PY{p}{,} \PY{n}{x0}\PY{o}{=}\PY{n}{initial\PYZus{}theta}\PY{p}{,} \PY{n}{fprime}\PY{o}{=}\PY{n}{f}\PY{o}{.}\PY{n}{gradient}\PY{p}{)}
+         \PY{n}{theta} \PY{o}{=} \PY{n}{result}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+    \subsubsection{2.4 Plotting the decision
+boundary}\label{plotting-the-decision-boundary}
+
+To help you visualize the model learned by this classifier, the function
+\texttt{plotDecisionBoundary} plots the (non-linear) decision boundary
+that separates the positive and negative examples. In
+\texttt{plotDecisionBoundary}, we plot the non-linear decision boundary
+by computing the classifier's predictions on an evenly spaced grid and
+then and drew a contour plot of where the predictions change from
+\(y = 0\) to \(y = 1\). After learning the parameters \(\theta\), the
+next step will plot a decision boundary similar to \texttt{Figure\ 4}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} Plot Boundary}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plot\PYZus{}data}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Microchip Test 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Microchip Test 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lambda = }\PY{l+s+si}{\PYZpc{}i}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{lb})
+         \PY{n}{plotDecisionBoundary}\PY{p}{(}\PY{n}{theta}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y = 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y = 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Decision boundary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Figure 4: Training data with decision boundary (λ = 1)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_25_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Figure 4: Training data with decision boundary (λ = 1)
+
+    \end{Verbatim}
+
+    \subsubsection{2.5 Optional exercises}\label{optional-exercises}
+
+In this part of the exercise, you will get to try out different
+regularization parameters for the dataset to understand how
+regularization prevents over-fitting.
+
+Notice the changes in the decision boundary as you vary \(\lambda\).
+
+\begin{itemize}
+\tightlist
+\item
+  With a small \(\lambda\), you should find that the classifier gets
+  almost every training example correct, but draws a very complicated
+  boundary, thus overfitting the data(\texttt{Figure\ 5}). This is not a
+  good decision boundary: for example, it predicts that a point at
+  \(x = (−0.25, 1.5)\) is accepted \((y = 1)\), which seems to be an
+  incorrect decision given the training set.
+\end{itemize}
+
+Figure 5: No regularization (Overfitting) (λ = 0)
+
+\begin{itemize}
+\tightlist
+\item
+  With a larger \(\lambda\), you should see a plot that shows an simpler
+  decision boundary which still separates the positives and negatives
+  fairly well. However, if \(\lambda\) is set to too high a value, you
+  will not get a good fit and the decision boundary will not follow the
+  data so well, thus underfitting the data (\texttt{Figure\ 6}).
+
+  Figure 6: No regularization (Underfitting) (λ = 100)
+\end{itemize}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
