@@ -163,9 +163,7 @@ def map_feature(X1, X2):
         for i in range(1,degree+1):
             for j in range(i+1):
                 out.append( (X1**(i-j)) * ((X2**j)) )
-            
     return np.array(out)
-
 
 def plot_decision_boundary(theta, X, y):
     """
@@ -248,16 +246,16 @@ class CostFuncReg(object):
     This class provides two function `cost` and `gradient` which compute cost and gradient
     for Regularized Logistic Regression
     """
-    def __init__(self, X=None, y=None, learningRate=None):
+    def __init__(self, X=None, y=None, learning_rate=None):
         assert X is not None, \
             "The argument `X` must be specified!"
         assert y is not None, \
             "The argument `y` must be specified!"
-        assert learningRate is not None, \
+        assert learning_rate is not None, \
             "The argument `Lambda` must be specified!"  
         self.X = X
         self.y = y
-        self.learningRate = learningRate
+        self.learning_rate = learning_rate
         self.m = len(y)
         
     def cost(self, theta):
@@ -277,16 +275,15 @@ class CostFuncReg(object):
         X = self.X
         y = self.y
         m = self.m        
-        learningRate = self.learningRate
+        learning_rate = self.learning_rate
 
         theta = theta.reshape((-1,1))
         
         h = sigmoid(np.dot(X, theta))
 
         first = (1/m)*np.sum(np.dot(-y.T, np.log(h)) - np.dot((1-y).T, np.log(1-h)), axis=0)
-        second = (learningRate/(2*m))*np.sum(theta[1:]**2)
+        second = (learning_rate/(2*m))*np.sum(theta[1:]**2)
         J = first + second
-
         return float(J)
     
     def gradient(self, theta):
@@ -306,15 +303,13 @@ class CostFuncReg(object):
         X = self.X
         y = self.y
         m = self.m
-        learningRate = self.learningRate
-
-  
+        learning_rate = self.learning_rate
+        
         theta = theta.reshape((-1,1))
         grad = np.zeros(theta.shape)
         h = sigmoid(np.dot(X, theta)) 
         
         grad = np.dot((h-y).T, X)/m
         grad = grad.T
-        grad[1:] += (learningRate/m)*theta[1:]
-
+        grad[1:] += (learning_rate/m)*theta[1:]
         return grad
