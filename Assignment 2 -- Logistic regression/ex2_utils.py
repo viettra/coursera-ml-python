@@ -9,7 +9,6 @@ __date__ = "04th_May_2018"
 
 def load(file_path):
     """ This function reads a .txt file and return a numpy array.
-    
     Arguments:
     - file_path: str -- the location path of the txt file
     
@@ -32,7 +31,6 @@ def load(file_path):
         data[i,:] = [float(num) for num in nums]
     return data    
 
-
 def plot_data(X, y):
     """
     This function plots the data points X and y into a new figure, 
@@ -50,36 +48,30 @@ def plot_data(X, y):
     - fig
 
     """
-       
     fig = plt.figure()
-    
     neg = np.where(y==0)[0].reshape((-1,1))
     pos = np.where(y==1)[0].reshape((-1,1))
     
     plt.plot(X[pos,0], X[pos,1], 'k+', lw=2, ms=7)
     plt.plot(X[neg, 0], X[neg, 1], 'ko',mfc='y', ms=7)
-
     return fig
 
 def sigmoid(z):
     """
     Function sigmoid(z) computes the sigmoid of z.
-    
     Arguments:
     - z: input value to compute, can be a array, vector or scalar.
-    
+
     Raises:
     - None
     
     Returns:
     - g: computed sigmoid value.
-    
     """
 
     g = 1/(1 + np.exp(-z))
     
     return g
-
 
 class CostFunc(object):
     """
@@ -98,7 +90,6 @@ class CostFunc(object):
     def cost(self, theta):
         """
         This function computes cost for logistic regression
-        
         Arguments:
         - self.(X, y): np.ndarray -- input data
         - theta: ndarray, optional 
@@ -141,9 +132,6 @@ class CostFunc(object):
             theta = theta.reshape((-1,1))
         
         h = sigmoid(np.dot(X, theta))
-        #a = np.repeat((h-y), X.shape[-1], axis=1)    
-        #print("a shape: {}".format(a.shape))
-        #print("X shape -1: {}".format(X.shape[-1]))        
         grad = np.dot(X.T, h-y)/m
         return grad
       
@@ -163,9 +151,7 @@ def map_feature(X1, X2):
     - out: a new feature array with more features, comprising of 
     X1, X2, X1.^2, X2.^2, X1*X2, X1*X2.^2, etc..
     """
-    
     #Inputs X1, X2 must be the same size
-    
     degree = 6
     if X1.shape != ():
         out = np.ones((X1.shape[0],1))
@@ -207,9 +193,6 @@ def plot_decision_boundary(theta, X, y):
         
         # Plot, and adjust axes for better viewing
         plt.plot(plot_x, plot_y)
-        
-        # Legend, specific for the exercise
-        # legend('Admitted', 'Not admitted', 'Decision Boundary')
         plt.axis([30, 100, 30, 100])
         plt.show()
         
@@ -246,7 +229,6 @@ def predict(theta, X, y):
     - p: ndarray -- prediction results vector of 0's and 1's
     - acc: float -- train accurary
     """
-    
     m = len(X)
     p = np.zeros((m,1))
     acc = 0
@@ -260,8 +242,6 @@ def predict(theta, X, y):
         if p[i] == y[i]:
             acc+=1
     return p, (acc/m)*100
-
-
 
 class CostFuncReg(object):
     """
@@ -337,7 +317,4 @@ class CostFuncReg(object):
         grad = grad.T
         grad[1:] += (learningRate/m)*theta[1:]
 
-
         return grad
-    
-    
