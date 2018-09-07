@@ -1,0 +1,819 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{ex3}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \#
+
+Programming Exercise 3: Multi-class Classification and Neural Networks
+
+\#\#
+
+Machine Learning
+
+\#\#
+
+Introduction
+
+In this exercise, you will implement one-vs-all logistic regression and
+neural networks to recognize hand-written digits. Before starting the
+programming exercise, we strongly recommend watching the video lectures
+and completing the review questions for the associated topics.
+
+Files included in this exercise
+
+ * \texttt{ex3.ipynb} - Python script that steps you through the
+exercise\\
+* \texttt{ex3\_utils.py} - Exercise 3's utilities functions *
+\texttt{ex3data1.mat} - Training set of hand-written digits *
+\texttt{ex3weights.mat} - Initial weights for the neural network
+exercise
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{from} \PY{n+nn}{ex3\PYZus{}utils} \PY{k}{import} \PY{o}{*}
+         \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{io} \PY{k}{as} \PY{n+nn}{io}
+         \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{optimize} \PY{k}{as} \PY{n+nn}{opt}
+         \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{o}{*}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} Setup environment variables}
+         
+         \PY{o}{\PYZpc{}}\PY{k}{load\PYZus{}ext} autoreload
+         \PY{o}{\PYZpc{}}\PY{k}{autoreload} 2
+         \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The autoreload extension is already loaded. To reload it, use:
+  \%reload\_ext autoreload
+
+    \end{Verbatim}
+
+    \subsection{1. Multi-class
+Classification}\label{multi-class-classification}
+
+For this exercise, you will use logistic regression and neural networks
+to recognize handwritten digits (from 0 to 9). Automated handwritten
+digit recognition is widely used today - from recognizing zip codes
+(postal codes) on mail envelopes to recognizing amounts written on bank
+checks. This exercise will show you how the methods you've learned can
+be used for this classification task.
+
+In the first part of the exercise, you will extend your previous
+implemention of logistic regression and apply it to one-vs-all
+classification.
+
+\subsubsection{1.1 Dataset}\label{dataset}
+
+You are given a data set in \texttt{ex3data1.mat} that contains 5000
+training examples of handwritten digits. The \texttt{.mat} format means
+that that the data has been saved in a native Octave/MATLAB matrix
+format, instead of a text (ASCII) format like a csv-file. These matrices
+can be read directly into your program by using the
+\texttt{scipy.io.loadmat} command. The matrix will already be named, so
+you do not need to assign names to them.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} Load saved matrices from file}
+         \PY{n}{data} \PY{o}{=} \PY{n}{io}\PY{o}{.}\PY{n}{loadmat}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ex3data1.mat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{X} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{y} \PY{o}{=} \PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Shape of X:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Shape of y:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Shape of X: (5000, 400)
+Shape of y: (5000, 1)
+
+    \end{Verbatim}
+
+    There are 5000 training examples in \texttt{ex3data1.mat}, where each
+trainingexample is a 20 pixel by 20 pixel grayscale image of the digit.
+Each pixel is represented by a floating point number indicating the
+grayscale intensity at that location. The 20 by 20 grid of pixels is
+``unrolled'' into a 400-dimensional vector. Each of these training
+examples becomes a single row in our data matrix \(X\). This gives us a
+5000 by 400 matrix \(X\) where every row is a training example for a
+handwritten digit image.
+
+The second part of the training set is a 5000-dimensional vector y that
+contains labels for the training set. We have mapped the digit zero to
+the value ten. Therefore, a ``0'' digit is labeled as ``10'', while the
+digits ``1'' to ``9'' are labeled as ``1'' to ``9'' in their natural
+order.
+
+\subsubsection{1.2 Visualizing the data}\label{visualizing-the-data}
+
+You will begin by visualizing a subset of the training set. In the first
+part of \texttt{ex3.ipynb}, the code randomly selects selects 100 rows
+from \(X\) and passes those rows to the \texttt{displayData}
+\texttt{@ex3\_utils.py} function. This function maps each row to a 20
+pixel by 20 pixel grayscale image and displays the images together.
+After you run this step, you should see an image like \texttt{Figure\ 1}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{} Setup the parameters you will use for this part of the exercise}
+         \PY{n}{input\PYZus{}layer\PYZus{}size}  \PY{o}{=} \PY{l+m+mi}{400}    \PY{c+c1}{\PYZsh{}0x20 Input Images of Digits}
+         \PY{n}{num\PYZus{}labels} \PY{o}{=} \PY{l+m+mi}{10}            \PY{c+c1}{\PYZsh{}0 labels, from 1 to 10}
+                                    \PY{c+c1}{\PYZsh{}note that we have mapped \PYZdq{}0\PYZdq{} to label 10)}
+         
+         \PY{c+c1}{\PYZsh{}  =========== Part 1: Visualizing Data =============}
+         
+         \PY{n}{m} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} Randomly select 100 data points to display}
+         \PY{n}{randIndices} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{m}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{sel} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{n}{randIndices}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+         \PY{n}{img} \PY{o}{=} \PY{n}{displayData}\PY{p}{(}\PY{n}{sel}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Figure 1: Random 100 examples from the dataset}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Figure 1: Random 100 examples from the dataset
+
+    \end{Verbatim}
+
+    \subsubsection{1.3 Vectorizing Logistic
+Regression}\label{vectorizing-logistic-regression}
+
+You will be using multiple one-vs-all logistic regression models to
+build a multi-class classifier. Since there are 10 classes, you will
+need to train 10 separate logistic regression classifiers. To make this
+training efficient, it is important to ensure that your code is well
+vectorized. In this section, you will implement a vectorized version of
+logistic regression that does not employ any \texttt{for} loops.
+
+\paragraph{1.3.1 Vectorizing the cost
+function}\label{vectorizing-the-cost-function}
+
+We will begin by writing a vectorized version of the cost function.
+Recall that in (unregularized) logistic regression, the cost function
+is:
+
+\[J(\theta) = \frac{1}{m}\sum[-y^{(i)}\log(h_\theta(x^{(i)})-(1-y^{(i)})\log(1-h_\theta(x^{(i)}))]\]
+
+To compute each element in the summation, we have to compute
+\(h_\theta(x^{(i)})\) for every example \(i\), where
+\(h_\theta(x^{(i)})= g(\theta^Tx^{(i)})\) and
+\(g(z)=\frac{1}{1+e^{-z}}\) is the sigmoid function. It turns out that
+we can compute this quickly for all our examples by using matrix
+multiplication. Let us define \(X\) and \(\theta\) as
+
+\[
+X=\left[ \begin{array}{cccc}
+—(x^{(1)})^T—  \\
+—(x^{(1)})^T—   \\
+ \vdots      \\
+—(x^{(m)})^T—   \\
+ \end{array} \right]
+\qquad and \qquad 
+\theta = \left[\begin{array}{cccc}
+\theta_0 \\
+\theta_1 \\
+\vdots \\
+\theta_n \\
+\end{array} \right].
+\]
+
+Then, by computing the matrix product \(X\theta\), we have
+
+\[
+X  \theta = \left[ \begin{array}{cccc}
+—(x^{(1)})^T\theta —  \\
+—(x^{(1)})^T\theta —   \\
+ \vdots      \\
+—(x^{(m)})^T\theta —   \\
+ \end{array} \right]
+= \left[ \begin{array}{cccc}
+—\theta^T(x^{(1)})—  \\
+—\theta^T(x^{(1)})—   \\
+ \vdots      \\
+—\theta^T(x^{(m)})—   \\
+ \end{array} \right].
+\]
+
+In the last equality, we used the fact that \(a^Tb = b^Ta\) if \(a\) and
+\(b\) are vectors. This allows us to compute the products
+\(\theta^Tx(i)\)θ T x (i) for all our examples i in one line of code.
+
+Your job is to write the unregularized cost function in the file
+\texttt{lrCostFunction@ex3\_utils.py}. Your implementation should use
+the strategy we presented above to calculate \(\theta^Tx(i)\) . You
+should also use a vectorized approach for the rest of the cost function.
+A fully vectorized version of \texttt{lrCostFunction} should not contain
+any loops.
+
+\paragraph{1.3.2 Vectorizing the
+gradient}\label{vectorizing-the-gradient}
+
+Recall that the gradient of the (unregularized) logistic regression cost
+is a vector where the j th element is defined as
+
+\[ \fraq{\delta J}{\delta \theta_J}\]
+
+\paragraph{1.3.3 Vectorizing regularized logistic
+regression}\label{vectorizing-regularized-logistic-regression}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} ============ Part 2a: Vectorize Logistic Regression ============}
+         
+         \PY{c+c1}{\PYZsh{} Test case for lrCostFunction}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Testing lrCostFunction() with regularization}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{theta\PYZus{}t} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{X\PYZus{}t} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+         \PY{n}{X\PYZus{}t} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{X\PYZus{}t}\PY{o}{/}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{axis}\PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{y\PYZus{}t} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{lambda\PYZus{}t} \PY{o}{=} \PY{l+m+mi}{3}
+         \PY{n}{cost}\PY{p}{,} \PY{n}{grad} \PY{o}{=} \PY{n}{lrCostFunction}\PY{p}{(}\PY{n}{theta\PYZus{}t}\PY{p}{,} \PY{n}{X\PYZus{}t}\PY{p}{,} \PY{n}{y\PYZus{}t}\PY{p}{,} \PY{n}{lambda\PYZus{}t}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cost: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{cost})
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Expected cost: 2.534819}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gradients: }\PY{l+s+si}{\PYZpc{}0.6f}\PY{l+s+s1}{ }\PY{l+s+si}{\PYZpc{}0.6f}\PY{l+s+s1}{ }\PY{l+s+si}{\PYZpc{}0.6f}\PY{l+s+s1}{ }\PY{l+s+si}{\PYZpc{}0.6f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{tuple}(grad))
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Expected gradients: 0.146561  \PYZhy{}0.548558  0.724722  1.398003 }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Testing lrCostFunction() with regularization
+Cost: 2.534819
+Expected cost: 2.534819
+
+Gradients: 0.146561 -0.548558 0.724722 1.398003
+Expected gradients: 0.146561  -0.548558  0.724722  1.398003 
+
+    \end{Verbatim}
+
+    \subsubsection{1.4 One-vs-all
+Classification}\label{one-vs-all-classification}
+
+In this part of the exercise, you will implement one-vs-all
+classification by training multiple regularized logistic regression
+classifiers, one for each of the K classes in our dataset (Figure 1). In
+the handwritten digits dataset, K = 10, but your code should work for
+any value of K.
+
+You should now complete the code in oneVsAll.m to train one classifier
+for each class. In particular, your code should return all the
+classifier parameters in a matrix Θ ∈ R K×(N +1) , where each row of Θ
+corresponds to the learned logistic regression parameters for one class.
+You can do this with a ``for''-loop from 1 to K, training each
+classifier independently.
+
+Note that the y argument to this function is a vector of labels from 1
+to 10, where we have mapped the digit ``0'' to the label 10 (to avoid
+confusionswith indexing).
+
+When training the classifier for class k ∈ \{1, ..., K\}, you will want
+a m-dimensional vector of labels y, where y j ∈ 0, 1 indicates whether
+the j-th training instance belongs to class k (y j = 1), or if it
+belongs to a different class (y j = 0). You may find logical arrays
+helpful for this task.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{k+kn}{from} \PY{n+nn}{ex3\PYZus{}utils} \PY{k}{import} \PY{o}{*}
+         \PY{n}{all\PYZus{}theta} \PY{o}{=} \PY{n}{oneVsAll}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Cost 1:0.026960
+Cost 2:0.068442
+Cost 3:0.071706
+Cost 4:0.052050
+Cost 5:0.076858
+Cost 6:0.034786
+Cost 7:0.046724
+Cost 8:0.092746
+Cost 9:0.089311
+Cost 10:0.020148
+
+    \end{Verbatim}
+
+    \paragraph{1.4.1 One-vs-all Prediction}\label{one-vs-all-prediction}
+
+After training your one-vs-all classifier, you can now use it to predict
+the digit contained in a given image. For each input, you should compute
+the ``probability'' that it belongs to each class using the trained
+logistic regression classifiers. Your one-vs-all prediction function
+will pick the class for which the corresponding logistic regression
+classifier outputs the highest probability and return the class label
+(1, 2,..., or K) as the prediction for the input example. You should now
+complete the code in predictOneVsAll.m to use the one-vs-all classifier
+to make predictions. Once you are done, ex3.m will call your
+predictOneVsAll function using the learned value of Θ. You should see
+that the training set accuracy is about 94.9\% (i.e., it classifies
+94.9\% of the examples in the training set correctly).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{pred} \PY{o}{=} \PY{n}{predictOneVsAll}\PY{p}{(}\PY{n}{all\PYZus{}theta}\PY{p}{,} \PY{n}{X}\PY{p}{)}
+         \PY{n}{eq} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{equal}\PY{p}{(}\PY{n}{pred}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+         \PY{n}{acc} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{eq}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training Set Accuracy: }\PY{l+s+si}{\PYZpc{}0.2f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{acc})
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Training Set Accuracy: 94.46
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{eq}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} 0.9446
+\end{Verbatim}
+            
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{2 Neural Networks}\label{neural-networks}
+
+In the previous part of this exercise, you implemented multi-class
+logistic re- gression to recognize handwritten digits. However, logistic
+regression cannot form more complex hypotheses as it is only a linear
+classifier. 3 In this part of the exercise, you will implement a neural
+network to rec- ognize handwritten digits using the same training set as
+before. The neural network will be able to represent complex models that
+form non-linear hy- potheses. For this week, you will be using
+parameters from a neural network that we have already trained. Your goal
+is to implement the feedforward propagation algorithm to use our weights
+for prediction. In next week's ex- ercise, you will write the
+backpropagation algorithm for learning the neural network parameters.
+The provided script, ex3 nn.m, will help you step through this exercise.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{} Setup the parameters you will use for this exercise:}
+         \PY{n}{input\PYZus{}layer\PYZus{}size}  \PY{o}{=} \PY{l+m+mi}{400}  \PY{c+c1}{\PYZsh{} 20x20 Input Images of Digits}
+         \PY{n}{hidden\PYZus{}layer\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{25}   \PY{c+c1}{\PYZsh{}\PYZpc{} 25 hidden units}
+         \PY{n}{num\PYZus{}labels} \PY{o}{=} \PY{l+m+mi}{10}          \PY{c+c1}{\PYZsh{}\PYZpc{} 10 labels, from 1 to 10   }
+         \PY{c+c1}{\PYZsh{} (note that we have mapped \PYZdq{}0\PYZdq{} to label 10)}
+\end{Verbatim}
+
+
+    \subsubsection{2.1 Model representation}\label{model-representation}
+
+Our neural network is shown in Figure 2. It has 3 layers -- an input
+layer, a hidden layer and an output layer. Recall that our inputs are
+pixel values of digit images. Since the images are of size 20×20, this
+gives us 400 input layer units (excluding the extra bias unit which
+always outputs +1). As before, the training data will be loaded into the
+variables X and y. You have been provided with a set of network
+parameters (Θ (1) , Θ (2) ) already trained by us. These are stored in
+ex3weights.mat and will be loaded by ex3 nn.m into Theta1 and Theta2 The
+parameters have dimensions that are sized for a neural network with 25
+units in the second layer and 10 output units (corresponding to the 10
+digit classes).
+
+Figure 2: Neural network model.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{}  =========== Part 1: Loading and Visualizing Data =============}
+         \PY{c+c1}{\PYZsh{}   We start the exercise by first loading and visualizing the dataset. }
+         \PY{c+c1}{\PYZsh{}   You will be working with a dataset that contains handwritten digits.}
+         
+         \PY{n}{data} \PY{o}{=} \PY{n}{io}\PY{o}{.}\PY{n}{loadmat}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ex3data1.mat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{X} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{y} \PY{o}{=} \PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{m} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Shape of X:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Shape of y:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Randomly select 100 data points to display}
+         \PY{n}{randIndices} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{m}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{sel} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{n}{randIndices}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+         \PY{n}{img} \PY{o}{=} \PY{n}{displayData}\PY{p}{(}\PY{n}{sel}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}plt.rcParams[\PYZsq{}figure.figsize\PYZsq{}] = [10, 5]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Figure 1: Examples from the dataset}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         
+         \PY{c+c1}{\PYZsh{} \PYZpc{} Load Training Data}
+         \PY{c+c1}{\PYZsh{} fprintf(\PYZsq{}Loading and Visualizing Data ...\PYZbs{}n\PYZsq{})}
+         
+         \PY{c+c1}{\PYZsh{} load(\PYZsq{}ex3data1.mat\PYZsq{});}
+         \PY{c+c1}{\PYZsh{} m = size(X, 1);}
+         
+         \PY{c+c1}{\PYZsh{} \PYZpc{} Randomly select 100 data points to display}
+         \PY{c+c1}{\PYZsh{} sel = randperm(size(X, 1));}
+         \PY{c+c1}{\PYZsh{} sel = sel(1:100);}
+         
+         \PY{c+c1}{\PYZsh{} displayData(X(sel, :));}
+         
+         \PY{c+c1}{\PYZsh{} fprintf(\PYZsq{}Program paused. Press enter to continue.\PYZbs{}n\PYZsq{});}
+         \PY{c+c1}{\PYZsh{} pause;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Shape of X: (5000, 400)
+Shape of y: (5000, 1)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Figure 1: Examples from the dataset
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{}  ================ Part 2: Loading Pameters ================}
+         \PY{c+c1}{\PYZsh{}  In this part of the exercise, we load some pre\PYZhy{}initialized }
+         \PY{c+c1}{\PYZsh{}  neural network parameters.}
+         
+         \PY{n}{weight} \PY{o}{=} \PY{n}{io}\PY{o}{.}\PY{n}{loadmat}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ex3weights.mat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Load the weights into variables Theta1 and Theta2}
+         \PY{c+c1}{\PYZsh{} load(\PYZsq{}ex3weights.mat\PYZsq{});}
+         \PY{n}{Theta1} \PY{o}{=} \PY{n}{weight}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Theta1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{Theta2} \PY{o}{=} \PY{n}{weight}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Theta2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Theta1}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s shape:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{Theta1}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Theta2}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s shape:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{Theta2}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Theta1's shape: (25, 401)
+Theta2's shape: (10, 26)
+
+    \end{Verbatim}
+
+    \subsubsection{2.2 Feedforward Propagation and
+Prediction}\label{feedforward-propagation-and-prediction}
+
+Now you will implement feedforward propagation for the neural network.
+You will need to complete the code in predict.m to return the neural
+network's prediction. You should implement the feedforward computation
+that computes h θ (x (i) ) for every example i and returns the
+associated predictions. Similar to the one-vs-all classification
+strategy, the prediction from the neural network will be the label that
+has the largest output (h θ (x)) k . Once you are done, ex3 nn.m will
+call your predict function using the loaded set of parameters for Theta1
+and Theta2. You should see that the accuracy is about 97.5\%. After
+that, an interactive sequence will launch dis- playing images from the
+training set one at a time, while the console prints out the predicted
+label for the displayed image. To stop the image sequence, press Ctrl-C.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{}  ================= Part 3: Implement Predict =================}
+         \PY{c+c1}{\PYZsh{}   After training the neural network, we would like to use it to predict}
+         \PY{c+c1}{\PYZsh{}   the labels. The \PYZdq{}predict\PYZdq{} function to use the neural network to predict }
+         \PY{c+c1}{\PYZsh{}    the labels of the training set. This lets\PYZsh{}   you compute the training set accuracy.}
+         
+         \PY{n}{pred} \PY{o}{=} \PY{n}{predict}\PY{p}{(}\PY{n}{Theta1}\PY{p}{,} \PY{n}{Theta2}\PY{p}{,} \PY{n}{X}\PY{p}{)}
+         \PY{n}{eq} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{equal}\PY{p}{(}\PY{n}{pred}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+         \PY{n}{acc} \PY{o}{=} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{eq}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{5000}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training Set Accuracy: }\PY{l+s+si}{\PYZpc{}0.2f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{acc})
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Training Set Accuracy: 97.52
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{}   To give you an idea of the network\PYZsq{}s output, you can also run}
+         \PY{c+c1}{\PYZsh{}   through the examples one at the a time to see what it is predicting.}
+         
+         \PY{c+c1}{\PYZsh{} \PYZpc{}  Randomly permute examples}
+         \PY{c+c1}{\PYZsh{} rp = randperm(m);}
+         \PY{n}{randEx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{m}\PY{p}{,}\PY{n}{m}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{m}\PY{p}{)}\PY{p}{:}
+             
+             \PY{n}{ex} \PY{o}{=} \PY{n}{randEx}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+             \PY{n}{sel} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{n}{ex}\PY{p}{:}\PY{n}{ex}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+             \PY{n}{img} \PY{o}{=} \PY{n}{displayData}\PY{p}{(}\PY{n}{sel}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+             \PY{n}{Pred} \PY{o}{=} \PY{n}{predict}\PY{p}{(}\PY{n}{Theta1}\PY{p}{,} \PY{n}{Theta2}\PY{p}{,} \PY{n}{sel}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neural Network Prediction: }\PY{l+s+si}{\PYZpc{}i}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{int}(Pred) + \PYZsq{} (digit \PYZpc{}i)\PYZsq{} \PYZpc{}np.mod(int(Pred),10))
+             \PY{n}{s} \PY{o}{=} \PY{n+nb}{input}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Press /r/ to run on another example, /q/ to exit: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{if} \PY{n}{s} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{q}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                 \PY{k}{break}
+             \PY{k}{elif} \PY{n}{s} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                 \PY{n}{clear\PYZus{}output}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Neural Network Prediction: 6 (digit 6)
+Press /r/ to run on another example, /q/ to exit: q
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
