@@ -6,6 +6,9 @@ from IPython.display import *
 from sklearn import svm
 import os 
 
+__author__ = "VietTra"
+__email__ = "viettra95@gmail.com"
+__date__ = "15th_May_2018"
 
 def plotData(X, y):
     """
